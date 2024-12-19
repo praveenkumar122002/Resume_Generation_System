@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Skill</title>
+</head>
+<body>
+    <h1>Delete Skill</h1>
+    <p>Are you sure you want to delete the skill "{{ skill.skill_name }}" with proficiency "{{ skill.proficiency }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+    </form>
+    <a href="{% url 'dashboard' %}">Cancel</a>
+</body>
+</html>

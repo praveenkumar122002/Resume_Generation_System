@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ resume.full_name }}'s Resume</title>
+    <link rel="stylesheet" href="{% static 'resume/style.css' %}" />
+  </head>
+  <body>
+    <P>Full Name: {{ resume.full_name }}</P>
+    <p>Email: {{ resume.email }}</p>
+    <p>Phone: {{ resume.phone }}</p>
+    <p>Address: {{ resume.address }}</p>
+    
+  
+
+    <h3>Education</h3>
+    <ul>
+      {% for edu in education %}
+      <li>
+        {{ edu.degree }} from {{ edu.institution }} ({{ edu.start_date }} - {{
+        edu.end_date }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    <h3>Work Experience</h3>
+    <ul>
+      {% for work in work_experience %}
+      <li>
+        {{ work.job_title }} at {{ work.company }} ({{ work.start_date }} - {{
+        work.end_date }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    <h3>Skills</h3>
+    <ul>
+      {% for skill in skills %}
+        <li>{{ skill.skill_name }}</li>
+      {% empty %}
+        <li>No skills added yet.</li>
+      {% endfor %}
+    </ul>
+    
+
+    <a href="{% url 'generate_pdf' resume.id %}">Download PDF</a>
+  </body>
+</html>

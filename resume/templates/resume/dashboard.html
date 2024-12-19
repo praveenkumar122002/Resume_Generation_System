@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #343a40; /* Dark grey */
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar button {
+            background-color: #28a745; /* Green */
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar button:hover {
+            background-color: #218838; /* Darker green */
+        }
+
+        .navbar .buttons {
+            display: flex;
+        }
+
+        /* Welcome Message */
+        .welcome {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #343a40; /* Dark grey */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div>
+            <strong>Dashboard</strong>
+        </div>
+        <div class="buttons">
+            <button onclick="window.location.href='{% url 'create_resume' %}'">Create Resume</button>
+            <button onclick="window.location.href='{% url 'view_resumes' %}'">View Resumes</button>
+            <button onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+        </div>
+    </div>
+
+    <!-- Welcome Message -->
+    <div class="welcome">
+        <h1>Welcome, {{ user.username }}!</h1>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>You are successfully logged in!</p>
+     
+    <h2>Create a New Resume</h2>
+<form method="post">
+    {% csrf_token %}
+    <h3>Resume Details</h3>
+    {{ resume_form.as_p }}
+    
+</form>
+
+<h3>Education</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ education_form.as_p }}
+    <button type="submit" name="add_education">Add Education</button>
+</form>
+
+<h3>Work Experience</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ work_experience_form.as_p }}
+  
+    <button type="submit" name="add_work_experience">Add Work Experience</button>
+</form>
+
+<h3>Skills</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ skill_form.as_p }}
+    <button type="submit" name="add_skill">Add Skill</button>
+</form>
+
+<h3>Languages</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ language_form.as_p }}
+    <button type="submit" name="add_language">Add Language</button>
+</form>
+
+<h3>Hobbies</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ hobby_form.as_p }}
+    <button type="submit" name="add_hobby">Add Hobby</button>
+</form>
+
+    
+
+    <h2>Your Resumes</h2>
+    {% for resume in user_resumes %}
+        <div>
+            <P>Full Name: {{ resume.full_name }}</P>
+            <p>Email: {{ resume.email }}</p>
+            <p>Phone: {{ resume.phone }}</p>
+            <p>Address: {{ resume.address }}</p>
+            <a href="{% url 'edit_resume' resume.id %}">Edit </a>
+            
+           
+            
+            
+            <h4>Education</h4>
+            <ul>
+                {% for edu in resume.education.all %}
+                    <li>
+                        {{ edu.degree }} from {{ edu.institution }} ({{ edu.start_date }} - {{ edu.end_date }})
+                        <p>{{ edu.description }}</p>
+                        <a href="{% url 'edit_education' edu.id %}">Edit</a>
+                        <a href="{% url 'delete_education' edu.id %}" onclick="return confirm('Are you sure you want to delete this?');">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+           
+
+            <h4>Work Experience</h4>
+            <ul>
+                {% for work in resume.work_experience.all %}
+                    <li>
+                        {{ work.job_title }} at {{ work.company }} ({{ work.start_date }} - {{ work.end_date }})
+                        <p>{{ work.description }}</p>
+                        <a href="{% url 'edit_work_experience' work.id %}">Edit</a>
+                        <a href="{% url 'delete_work_experience' work.id %}" onclick="return confirm('Are you sure you want to delete this?');">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <h4 >Skills</h4>
+            <ul>
+                {% for skill in resume.skills.all %}
+                   <li>
+                       {{ skill.skill_name }} - {{ skill.proficiency }}
+                       <a href="{% url 'edit_skill' skill.id %}">Edit</a>
+                       <a href="{% url 'delete_skill' skill.id %}" onclick="return confirm('Are you sure you want to delete this?');">Delete</a>
+                   </li>
+                {% endfor %}
+            </ul>
+
+
+
+            <h4>Languages</h4>
+            <ul>
+                {% for lang in resume.languages.all %}
+                    <li>
+                        {{ lang.language_name }} - {{ lang.proficiency }}
+                        <a href="{% url 'edit_language' lang.id %}">Edit</a>
+                        <a href="{% url 'delete_language' lang.id %}" onclick="return confirm('Are you sure you want to delete this?');">Delete</a>
+
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <h4>Hobbies</h4>
+           <ul>
+                {% for hobby in resume.hobbies.all %}
+                   <li>
+                       {{ hobby.hobby_name }}
+                       <a href="{% url 'edit_hobby' hobby.id %}">Edit</a>
+                       <a href="{% url 'delete_hobby' hobby.id %}" onclick="return confirm('Are you sure you want to delete this?');">Delete</a>
+                  </li>
+
+                </li>
+                {% endfor %}
+           </ul>
+           <button type="submit" name="save_resume">Save All</button>
+
+            <a href="{% url 'download_pdf' resume.id %}" class="btn btn-primary">Download PDF</a>
+        </div>
+    {% endfor %}
+
+    <div class="logout">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</body>
+</html> {% endcomment %}
+

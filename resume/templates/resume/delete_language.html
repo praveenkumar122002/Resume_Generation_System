@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Language</title>
+</head>
+<body>
+    <h1>Delete Language</h1>
+    <p>Are you sure you want to delete this language?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+    </form>
+    <a href="{% url 'dashboard' %}">Cancel</a>
+</body>
+</html>

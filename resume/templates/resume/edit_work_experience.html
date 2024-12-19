@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Work Experience</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        .form-field label {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-field input, .form-field select, .form-field textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a:hover {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Edit Work Experience</h1>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-field">
+                <label for="job_title">Job Title</label>
+                {{ form.job_title }}
+            </div>
+
+            <div class="form-field">
+                <label for="company">Company</label>
+                {{ form.company }}
+            </div>
+
+            <div class="form-field">
+                <label for="start_date">Start Date</label>
+                {{ form.start_date }}
+            </div>
+
+            <div class="form-field">
+                <label for="end_date">End Date</label>
+                {{ form.end_date }}
+            </div>
+
+            <div class="form-field">
+                <label for="description">Job Description</label>
+                {{ form.description }}
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+        <a href="{% url 'dashboard' %}">Cancel</a>
+    </div>
+
+</body>
+</html>
